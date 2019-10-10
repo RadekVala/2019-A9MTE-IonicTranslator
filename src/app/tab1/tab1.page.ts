@@ -15,6 +15,7 @@ export class Tab1Page {
   btnTranslateClicked(){
     console.log(this.userInput);
     //debugger;
+    
   }
 
 }
