@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslationService } from '../api/translation.service';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -8,22 +9,38 @@ import { TranslationService } from '../api/translation.service';
 })
 export class Tab1Page {
 
-  private userInput:string = ''
-  private translationResult:string = ''
+  private userInput: string = ''
+  private translationResult: string = ''
+  private loading: any
 
-  constructor(private translationService: TranslationService) {}
+  constructor(
+    public loadingController: LoadingController,
+    private translationService: TranslationService
+  ) { }
 
-  btnTranslateClicked(){
+  btnTranslateClicked() {
+    
     console.log(this.userInput);
     //debugger;
-    // call the API
-    this.translationService.getTranslation(this.userInput)
-    .subscribe((response) => {
-      // response from server is back, process it
-      console.log(response);
-      this.translationResult = response['responseData']['translatedText'];
+    if (this.userInput.length > 1) {
+      // call the API
+      this.presentLoading();
+      this.translationService.getTranslation(this.userInput)
+        .subscribe((response) => {
+          // response from server is back, process it
+          console.log(response);
+          this.translationResult = response['responseData']['translatedText'];
+          // hide loading dialog
+          this.loading.dismiss();
+        });
+    }
+  }
+
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
+      message: 'Waiting for translation...'
     });
-    
+    await this.loading.present();
   }
 
 }
