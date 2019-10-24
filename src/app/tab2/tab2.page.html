@@ -9,7 +9,7 @@
 <ion-content>
 
   <ion-list>
-    <ion-item *ngFor="let record of historyArray">
+    <ion-item (click)="speak(record.output)" *ngFor="let record of historyArray">
       <ion-label>{{ record.input }} -> {{ record.output }} </ion-label>
     </ion-item>
   </ion-list>

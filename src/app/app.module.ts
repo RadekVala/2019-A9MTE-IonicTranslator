@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { TranslationService } from './api/translation.service';
 
 import { IonicStorageModule } from '@ionic/storage';
+import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +23,7 @@ import { IonicStorageModule } from '@ionic/storage';
     StatusBar,
     SplashScreen,
     TranslationService,
+    TextToSpeech,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
