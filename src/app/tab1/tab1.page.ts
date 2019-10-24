@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { TranslationService } from '../api/translation.service';
 import { LoadingController } from '@ionic/angular';
 import { HistoryRecord } from '../models/history-record.model';
+import { HistoryService } from '../api/history.service';
 
 @Component({
   selector: 'app-tab1',
@@ -16,7 +17,8 @@ export class Tab1Page {
 
   constructor(
     public loadingController: LoadingController,
-    private translationService: TranslationService
+    private translationService: TranslationService,
+    private history: HistoryService
   ) { }
 
   btnTranslateClicked() {
@@ -32,6 +34,7 @@ export class Tab1Page {
           console.log(response);
           this.translationResult = response['responseData']['translatedText'];
           let historyRecord = new HistoryRecord(this.userInput, this.translationResult)
+          this.history.saveRecord(historyRecord)
           // hide loading dialog
           this.loading.dismiss();
         });
