@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslationService } from '../api/translation.service';
 import { LoadingController } from '@ionic/angular';
+import { HistoryRecord } from '../models/history-record.model';
 
 @Component({
   selector: 'app-tab1',
@@ -30,6 +31,7 @@ export class Tab1Page {
           // response from server is back, process it
           console.log(response);
           this.translationResult = response['responseData']['translatedText'];
+          let historyRecord = new HistoryRecord(this.userInput, this.translationResult)
           // hide loading dialog
           this.loading.dismiss();
         });
